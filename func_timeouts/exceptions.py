@@ -1,5 +1,6 @@
 '''
     Copyright (c) 2016 Tim Savannah All Rights Reserved.
+    Modified - Copyright (c) 2019 Brian Houle
 
     Licensed under the Lesser GNU Public License Version 3, LGPLv3. You should have recieved a copy of this with the source distribution as
     LICENSE, otherwise it is available at https://github.com/kata198/func_timeout/LICENSE
@@ -9,7 +10,7 @@ __all__ = ('FunctionTimedOut', 'RETRY_SAME_TIMEOUT')
 
 RETRY_SAME_TIMEOUT = 'RETRY_SAME_TIMEOUT'
 
-class FunctionTimedOut(BaseException):
+class FunctionTimedOut(Exception):
     '''
         FunctionTimedOut - Exception raised when a function times out
 
@@ -46,7 +47,9 @@ class FunctionTimedOut(BaseException):
 
             @return <str> - Message
         '''
-        return 'Function %s (args=%s) (kwargs=%s) timed out after %f seconds.\n' %(self.timedOutFunction.__name__, repr(self.timedOutArgs), repr(self.timedOutKwargs), self.timedOutAfter)
+        timedOutFunctionName = self.timedOutFunction.__name__ if self.timedOutFunction else 'None'
+        timeoutSeconds = self.timedOutAfter or -1
+        return 'Function %s (args=%s) (kwargs=%s) timed out after %f seconds.\n' %(timedOutFunctionName, repr(self.timedOutArgs), repr(self.timedOutKwargs), timeoutSeconds)
 
     def retry(self, timeout=RETRY_SAME_TIMEOUT):
         '''
