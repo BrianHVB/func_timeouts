@@ -30,7 +30,7 @@ if __name__ == '__main__':
         log_description = summary
 
     setup(name='func_timeouts',
-            version='1.0',
+            version='1.0.1',
             packages=['func_timeouts'],
             author='Brian Houle',
             author_email='grimzecho@gmail.com',
