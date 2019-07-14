@@ -13,7 +13,7 @@ import sys
 import subprocess
 import time
 
-from func_timeout import func_timeout, FunctionTimedOut, func_set_timeout
+from func_timeouts import func_timeout, FunctionTimedOut, func_set_timeout
 
 from TestUtils import ARG_NO_DEFAULT, ARG_NO_DEFAULT_TYPE, getSleepLambda, getSleepLambdaWithArgs, compareTimes
 

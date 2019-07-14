@@ -69,6 +69,25 @@ The "timeout" parameter can be either a number (for a fixed timeout), or a funct
 	def myFunction(self, arg1, arg2):
 		...
 
+func timeout
+------------------
+This is another decorator you can use that will apply func\_timeout.
+The decorator takes no parameters, but instead expects that the wrapped function will be called with an additional `timeout=` parameter. If no such parameter is passed to the decorated function, then it is invoked as if the decorator wasn't present.
+
+**Example**
+
+```python
+@timeout()
+def foo(arg1):
+    #...
+    pass
+ 
+try:
+    result = foo('bar', timeout=3)
+except FunctionTimedOut:
+    return None
+
+```
 
 FunctionTimedOut
 ----------------

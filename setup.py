@@ -20,7 +20,7 @@ if __name__ == '__main__':
     if dirName and os.getcwd() != dirName:
         os.chdir(dirName)
 
-    summary = 'Python module which allows you to specify timeouts when calling any existing function. Also provides support for stoppable-threads'
+    summary = 'Fork of [func_timeout]. Fixes some Exception issues and creates a new decorator for when you always want to specify a timeout value.'
 
     try:
         with open('README.rst', 'rt') as f:
@@ -29,18 +29,18 @@ if __name__ == '__main__':
         sys.stderr.write('Error reading from README.rst: %s\n' %(str(e),))
         log_description = summary
 
-    setup(name='func_timeout',
-            version='4.3.3',
-            packages=['func_timeout'],
-            author='Tim Savannah',
-            author_email='kata198@gmail.com',
-            maintainer='Tim Savannah',
-            url='https://github.com/kata198/func_timeout',
-            maintainer_email='kata198@gmail.com',
+    setup(name='func_timeouts',
+            version='1.0',
+            packages=['func_timeouts'],
+            author='Brian Houle',
+            author_email='grimzecho@gmail.com',
+            maintainer='Brian Houle',
+            url='https://github.com/BrianHVB/func_timeouts.git',
+            maintainer_email='grimzecho@gmail.com',
             description=summary,
             long_description=long_description,
             license='LGPLv2',
-            keywords=['function', 'timeout', 'call', 'terminate', 'runtime', 'max', 'seconds', 'after', 'execution'],
+            keywords=['timeout'],
             classifiers=['Development Status :: 5 - Production/Stable',
                          'Programming Language :: Python',
                          'License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)',

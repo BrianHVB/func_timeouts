@@ -15,7 +15,7 @@ import time
 import threading
 import subprocess
 
-from func_timeout import func_timeout, FunctionTimedOut, func_set_timeout, timeout
+from func_timeouts import func_timeout, FunctionTimedOut, func_set_timeout, timeout
 
 from TestUtils import ARG_NO_DEFAULT, getSleepLambda, getSleepLambdaWithArgs, compareTimes
 
@@ -439,7 +439,6 @@ class TestDecorator(object):
     @timeout()
     def mocked_function(self, interval, repitions):
         for i in range(0, repitions):
-            print('testing...')
             time.sleep(interval)
 
         return True
