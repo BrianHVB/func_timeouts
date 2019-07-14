@@ -15,7 +15,7 @@ import time
 import threading
 import subprocess
 
-from func_timeout import func_timeout, FunctionTimedOut, func_set_timeout
+from func_timeout import func_timeout, FunctionTimedOut, func_set_timeout, timeout
 
 from TestUtils import ARG_NO_DEFAULT, getSleepLambda, getSleepLambdaWithArgs, compareTimes
 
@@ -66,6 +66,7 @@ class TestDecorator(object):
         assert not gotException , 'Expected not to get exception at 80% sleep time'
         assert compareTimes(endTime, startTime, SLEEP_TIME * .8, None, .1) == 0 , 'Expected to only sleep for 80% of sleep time'
         assert result == expected , 'Got wrong result'
+
 
     def test_funcSetTimeoutOverride(self):
         @func_set_timeout(SLEEP_TIME, allowOverride=True)
@@ -433,6 +434,31 @@ class TestDecorator(object):
             pass
 
         assert hello4.__name__ == 'hello4'
+
+
+    @timeout()
+    def mocked_function(self, interval, repitions):
+        for i in range(0, repitions):
+            print('testing...')
+            time.sleep(interval)
+
+        return True
+
+    def test_timeout_decorator_should_do_nothing_when_no_timeout_arg_passed(self):
+
+        result = self.mocked_function(1, 1)
+
+        assert(result, True)
+
+    def test_timeout_decorator_should_return_timedout_exception_when_triggered(self):
+
+        try:
+            result = self.mocked_function(1, 4, timeout=2)
+        except FunctionTimedOut as e:
+            assert(True)
+            return
+
+        assert(False)
 
 
 if __name__ == '__main__':

@@ -6,3 +6,5 @@ dist/
 *.egg-info/
 myenv/
 __pycache__/
+
+.idea

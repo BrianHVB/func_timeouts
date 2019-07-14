@@ -233,4 +233,17 @@ def func_set_timeout(timeout, allowOverride=False):
     return _function_decorator
 
 
-# vim: set ts=4 sw=4 expandtab :
+def timeout():
+    def _function_decorator(func):
+        def _function_wrapper(*args, **kwargs):
+            if 'timeout' in kwargs:
+                timeout_val = kwargs.pop('timeout')
+            else:
+                return func(*args, **kwargs)
+
+            return func_timeout(timeout_val, func, args=args, kwargs=kwargs)
+
+        return wraps(func)(_function_wrapper)
+    return _function_decorator
+
+

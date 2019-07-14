@@ -9,8 +9,8 @@
 __version__ = '4.3.3'
 __version_tuple__ = (4, 3, 3)
 
-__all__ = ('func_timeout', 'func_set_timeout', 'FunctionTimedOut', 'StoppableThread')
+__all__ = ('func_timeout', 'func_set_timeout', 'FunctionTimedOut', 'StoppableThread', 'timeout')
 
 from .exceptions import FunctionTimedOut
-from .dafunc import func_timeout, func_set_timeout
+from .dafunc import func_timeout, func_set_timeout, timeout
 from .StoppableThread import StoppableThread
