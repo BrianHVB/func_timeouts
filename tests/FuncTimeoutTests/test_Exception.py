@@ -1,4 +1,4 @@
-from func_timeout.exceptions import FunctionTimedOut
+from func_timeouts.exceptions import FunctionTimedOut
 
 
 class TestException(object):
@@ -28,6 +28,6 @@ class TestException(object):
 
         try:
             raise ex
-        except Exception as e:
+        except BaseException as e:
             assert isinstance(e, FunctionTimedOut)
-            assert issubclass(type(e), Exception)
+            assert issubclass(type(e), BaseException)

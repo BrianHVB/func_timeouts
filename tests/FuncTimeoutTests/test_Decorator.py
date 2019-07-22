@@ -14,6 +14,7 @@ import sys
 import time
 import threading
 import subprocess
+import os
 
 from func_timeouts import func_timeout, FunctionTimedOut, func_set_timeout, timeout
 
@@ -443,6 +444,17 @@ class TestDecorator(object):
 
         return True
 
+    @timeout()
+    def file_writer(self, filename):
+        counter = 0
+        while True:
+            counter += 1
+            with open(filename, 'w') as f:
+                f.write(str(counter))
+
+            time.sleep(1)
+
+
     def test_timeout_decorator_should_do_nothing_when_no_timeout_arg_passed(self):
 
         result = self.mocked_function(1, 1)
@@ -458,6 +470,26 @@ class TestDecorator(object):
             return
 
         assert(False)
+
+
+    def test_that_timed_out_function_actually_ends(self):
+        filename = 'out.tmp'
+        timeout = 1
+
+        try:
+            self.file_writer(filename, timeout=timeout)
+        except FunctionTimedOut as e:
+            time.sleep(2)
+
+
+        result = None
+        with open(filename, 'r') as f:
+            result = f.readline().strip()
+
+        assert(result, timeout)
+
+        os.remove(filename)
+
 
 
 if __name__ == '__main__':
